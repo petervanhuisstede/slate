@@ -1,241 +1,129 @@
 ---
-title: API Reference
+title: Dolores M. Etter's Introduction to C
 
 language_tabs: # must be one of https://git.io/vQNgJ
   - shell
-  - ruby
-  - python
-  - javascript
+  - c: C
 
 toc_footers:
-  - <a href='#'>Sign Up for a Developer Key</a>
   - <a href='https://github.com/slatedocs/slate'>Documentation Powered by Slate</a>
 
 includes:
-  - errors
+  # - errors
 
 search: true
 
 code_clipboard: true
 ---
 
-# Introduction
+# An Introduction to Engineering Problem Solving
 
-Welcome to the Kittn API! You can use our API to access Kittn API endpoints, which can get information on various cats, kittens, and breeds in our database.
+Etter concentrates on the language parts of C that an engineer needs
+to solve typical engineering problems.
 
-We have language bindings in Shell, Ruby, Python, and JavaScript! You can view code examples in the dark area to the right, and you can switch the programming language of the examples with the tabs in the top right.
+## An Engineering Problem-Solving Methodology
 
-This example API documentation page was created with [Slate](https://github.com/slatedocs/slate). Feel free to edit it and use it as a base for your own API's documentation.
+Problem solving techniques bind together various areas: Computing,
+mathematics, physics, etc.
 
-# Authentication
+Etter proposes the following 5 steps problem-solving method:
 
-> To authorize, use this code:
+1. State the problem clearly;
+2. Describe the input and the output information;
+3. Work the problem by hand for a simple set of data;
+4. Develop a solution and convert it into a computer program;
+5. Test the solution using a variety of data.
 
-```ruby
-require 'kittn'
+### Problem Statement
 
-api = Kittn::APIClient.authorize!('meowmeowmeow')
-```
+Example: Compute the straight-line distance between 2 points in a
+plane.
 
-```python
-import kittn
+### Input/Output Description
 
-api = kittn.authorize('meowmeowmeow')
-```
+input   |  function |  output
+-----   |  -------- |  ------
+point 1 |  ?        |  distance between two points
+point 2 |           | 
 
-```shell
-# With shell, you can just pass the correct header with each request
-curl "api_endpoint_here" \
-  -H "Authorization: meowmeowmeow"
-```
+### Hand Example
 
-```javascript
-const kittn = require('kittn');
+Even for simple problems an important step (NEVER TO BE
+SKIPPED!). Here you work out the details of the problem solution: Take
+a simple set of numbers (input) and compute the output.
 
-let api = kittn.authorize('meowmeowmeow');
-```
+> p1 = (1,5); p2 = (4,7)
 
-> Make sure to replace `meowmeowmeow` with your API key.
+Here we use the following coordinates for p1 and p2:
+	
+> distance = sqrt(side1^2 + side2^2) <br />
+> distance = sqrt((4-1)^2 + (7-5)^2) <br />
+> distance = sqrt(13) <br />
+> distance = 3.61
 
-Kittn uses API keys to allow access to the API. You can register a new Kittn API key at our [developer portal](http://example.com/developers).
+Now, the distance between 2 points is the hypothenuse of the right
+triangle. Which brings us to the application of the Pythagorean
+theorem.
 
-Kittn expects for the API key to be included in all API requests to the server in a header that looks like the following:
+Note that we can infer very useful information from our hand
+example. Types of input (two numbers) and output (one number):
+integers and floats; we probably need to call in a math library to
+provide the sqrt function, and we need to show (print) the result.
 
-`Authorization: meowmeowmeow`
+### Algorithm Development
 
-<aside class="notice">
-You must replace <code>meowmeowmeow</code> with your personal API key.
-</aside>
+```C
+/*
+Program chapter 1.1: points.c
+Compute the distance between 2 points
+*/
+#include <stdio.h>
+#include <stdlib.h>
+#include <math.h>
 
-# Kittens
-
-## Get All Kittens
-
-```ruby
-require 'kittn'
-
-api = Kittn::APIClient.authorize!('meowmeowmeow')
-api.kittens.get
-```
-
-```python
-import kittn
-
-api = kittn.authorize('meowmeowmeow')
-api.kittens.get()
-```
-
-```shell
-curl "http://example.com/api/kittens" \
-  -H "Authorization: meowmeowmeow"
-```
-
-```javascript
-const kittn = require('kittn');
-
-let api = kittn.authorize('meowmeowmeow');
-let kittens = api.kittens.get();
-```
-
-> The above command returns JSON structured like this:
-
-```json
-[
-  {
-    "id": 1,
-    "name": "Fluffums",
-    "breed": "calico",
-    "fluffiness": 6,
-    "cuteness": 7
-  },
-  {
-    "id": 2,
-    "name": "Max",
-    "breed": "unknown",
-    "fluffiness": 5,
-    "cuteness": 10
-  }
-]
-```
-
-This endpoint retrieves all kittens.
-
-### HTTP Request
-
-`GET http://example.com/api/kittens`
-
-### Query Parameters
-
-Parameter | Default | Description
---------- | ------- | -----------
-include_cats | false | If set to true, the result will also include cats.
-available | true | If set to false, the result will include kittens that have already been adopted.
-
-<aside class="success">
-Remember — a happy kitten is an authenticated kitten!
-</aside>
-
-## Get a Specific Kitten
-
-```ruby
-require 'kittn'
-
-api = Kittn::APIClient.authorize!('meowmeowmeow')
-api.kittens.get(2)
-```
-
-```python
-import kittn
-
-api = kittn.authorize('meowmeowmeow')
-api.kittens.get(2)
-```
-
-```shell
-curl "http://example.com/api/kittens/2" \
-  -H "Authorization: meowmeowmeow"
-```
-
-```javascript
-const kittn = require('kittn');
-
-let api = kittn.authorize('meowmeowmeow');
-let max = api.kittens.get(2);
-```
-
-> The above command returns JSON structured like this:
-
-```json
-{
-  "id": 2,
-  "name": "Max",
-  "breed": "unknown",
-  "fluffiness": 5,
-  "cuteness": 10
+int main() {
+	/* Declare and initialize variables */
+	double x1=1, y1=5, x2=4, y2=7,
+		side_1, side_2, distance;
+	/* Compute the sides of a right triangle */
+	side_1 = x2 - x1;
+	side_2 = y2 - y1;
+	distance = sqrt(side_1*side_1 + side_2*side_2);
+	/* Print the distance */
+	printf("The distance between the 2 points is: %5.2f\n", distance);
+	/* Exit the program gracefully */
+	return 0;
 }
 ```
 
-This endpoint retrieves a specific kitten.
+List the steps to take to get to the solution. We decompose the
+problem into an outline of simple steps (decomposition outline):
 
-<aside class="warning">Inside HTML code blocks like this one, you can't use Markdown, so use <code>&lt;code&gt;</code> blocks to denote code.</aside>
+1. Give values to the 2 points
+2. Compute the length of the 2 sides of the right triangle generated
+   by the two points
+3. Compute the distance between the two points (equal to the length of
+   the hypothenuse of the triangle)
+4. Print the distance between the 2 points
 
-### HTTP Request
-
-`GET http://example.com/kittens/<ID>`
-
-### URL Parameters
-
-Parameter | Description
---------- | -----------
-ID | The ID of the kitten to retrieve
-
-## Delete a Specific Kitten
-
-```ruby
-require 'kittn'
-
-api = Kittn::APIClient.authorize!('meowmeowmeow')
-api.kittens.delete(2)
-```
-
-```python
-import kittn
-
-api = kittn.authorize('meowmeowmeow')
-api.kittens.delete(2)
-```
+For this program to run we need to compile it and run the compiled
+executable. For this we use a simple Makefile that is placed in the
+same directory as the source file "points.c"
 
 ```shell
-curl "http://example.com/api/kittens/2" \
-  -X DELETE \
-  -H "Authorization: meowmeowmeow"
+make
 ```
 
-```javascript
-const kittn = require('kittn');
+Our Makefile gets the libraries lined up and yields the executable
+file "points". Which again we can run from the CLI.
 
-let api = kittn.authorize('meowmeowmeow');
-let max = api.kittens.delete(2);
+```shell
+./points
 ```
 
-> The above command returns JSON structured like this:
+Which prints the result of our computation in the terminal.
 
-```json
-{
-  "id": 2,
-  "deleted" : ":("
-}
-```
+> The distance between the 2 points is:  3.61
 
-This endpoint deletes a specific kitten.
-
-### HTTP Request
-
-`DELETE http://example.com/kittens/<ID>`
-
-### URL Parameters
-
-Parameter | Description
---------- | -----------
-ID | The ID of the kitten to delete
+# Simple C Programs
 
