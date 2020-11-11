@@ -3,7 +3,8 @@ title: Dolores M. Etter's Introduction to C
 
 language_tabs: # must be one of https://git.io/vQNgJ
   - shell
-  - c: C
+  - c
+  # - python
 
 toc_footers:
   - <a href='https://github.com/slatedocs/slate'>Documentation Powered by Slate</a>
@@ -78,7 +79,6 @@ Program chapter 1.1: points.c
 Compute the distance between 2 points
 */
 #include <stdio.h>
-#include <stdlib.h>
 #include <math.h>
 
 int main() {
@@ -126,4 +126,99 @@ Which prints the result of our computation in the terminal.
 > The distance between the 2 points is:  3.61
 
 # Simple C Programs
+
+## Objectives of this section
+
+- Learn to write a simple C program
+- Use C statements that define constants and variables
+- Learn how to do simple arithmetic in C
+- Use C statements to read input from the keyboard, and print output
+  to the screen
+- Read about mathematical functions used to solve (engineering)
+  problems
+
+## Program Structure
+
+In the previous section we saw a small, but complete C program (points.c) that
+calculated the distance between two points on a plane.
+
+```c
+/*
+Program chapter 1.1: points.c
+Compute the distance between 2 points
+*/
+```
+
+The lines between the markers `/* .. */` are comments to make the
+program readable (for future users or for oneself in the near future).
+
+```c
+#include <stdio.h>
+#include <math.h>
+```
+
+The next two lines are so-called *preprocessor directives* which give
+instructions to the compiler before the actual program is compiled:
+`<stdio.h>` stands for standard Input/Output and provides for the use
+of the `printf()` function, `<math.h>` provides the `sqrt()`
+function. The arrows indicate that both functions belong to the
+*Standard C Library*.
+
+```c
+int main() {
+	[...]
+}
+```
+
+Every C program has a `main()` function which is the entry and exit
+point of the program. `main()` contains two kinds of commands:
+
+1. Declarations
+2. Statements
+
+```c
+int main() {
+	/* Declare and initialize variables. */
+	double x1=1, y1=5, x2=4, y2=7,
+        side_1, side_2, distance;
+}
+```
+
+*Declarations* define the memory locations that the statements will
+use. Hence the type indications like `double` (The compiler needs to
+allocate a little more space for `doubles` then for `intergers`). In
+our program we declare 7 variables that are all of the type `double`;
+four of the variables (our two points on the plane) are initialized,
+three are not.
+
+```c
+int main() {
+    /* Compute the sides of a right triangle */
+    side_1 = x2 - x1;
+    side_2 = y2 - y1;
+    distance = sqrt(side_1*side_1 + side_2*side_2);
+    /* Print the distance */
+    printf("The distance between the 2 points is: %5.2f\n", distance);
+    /* Exit the program gracefully */
+    return 0;
+}
+```
+
+*Statements* specify the operations to be performed in the
+program. Here we see our handwork return in the calculation of the
+variable `distance`. After computing the distance using the
+Pythagorean theorem, we use the `printf()` to print the result.
+
+The last line is just a convention to gracefully exit the main
+function.
+
+To sum up, we have just seen the *general form* of a C program:
+
+*preprocessing directives* <br />
+main() { <br />
+    *declarations*; <br />
+    *statements*; <br />
+} <br />
+
+
 
