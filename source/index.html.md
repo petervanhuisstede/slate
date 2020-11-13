@@ -1,10 +1,9 @@
 ---
-title: Dolores M. Etter's Introduction to C
+title: Dolores M. Etter's Introduction to C (for Python)
 
 language_tabs: # must be one of https://git.io/vQNgJ
   - shell
   - c
-  # - python
 
 toc_footers:
   - <a href='https://github.com/slatedocs/slate'>Documentation Powered by Slate</a>
@@ -21,6 +20,14 @@ code_clipboard: true
 
 Etter concentrates on the language parts of C that an engineer needs
 to solve typical engineering problems.
+
+Because C is a small language, concentrating on the topics concerning
+engineering and problem solving results in a condensed text that presents
+a minimal viable way for writing useful programs.
+
+Here we use the structure of "Introduction to C" published in 1998,
+with 121 pages a small programming book indeed, to explore the Python
+programming language.
 
 ## An Engineering Problem-Solving Methodology
 
@@ -82,16 +89,16 @@ Compute the distance between 2 points
 #include <math.h>
 
 int main() {
-	/* Declare and initialize variables */
+	// Declare and initialize variables
 	double x1=1, y1=5, x2=4, y2=7,
 		side_1, side_2, distance;
-	/* Compute the sides of a right triangle */
+	// Compute the sides of a right triangle
 	side_1 = x2 - x1;
 	side_2 = y2 - y1;
 	distance = sqrt(side_1*side_1 + side_2*side_2);
-	/* Print the distance */
+	// Print the distance
 	printf("The distance between the 2 points is: %5.2f\n", distance);
-	/* Exit the program gracefully */
+	// Exit the program gracefully
 	return 0;
 }
 ```
@@ -216,9 +223,71 @@ To sum up, we have just seen the *general form* of a C program:
 
 *preprocessing directives* <br />
 main() { <br />
+    *documentation* <br />
     *declarations*; <br />
     *statements*; <br />
 } <br />
 
+## Constants and Variables
 
+*Constants* in C are specific values that are used in C
+statements. Think a working value for Pi like 3,1416 (or, more
+precise: 3.141593).
+
+*Variables* are memory locations that are given a name (identifier)
+and one uses the name to reference the value stored in that memory
+location. Often people use metaphors to explain this concept of
+*variables*, like:
+
+- Mailbox metaphor (name -> mailbox that contains mail)
+- Library metaphor (shelfmark -> location where you find a book)
+
+```c
+double x1=1, y1=5, x2=4,y2=7,
+    side_1, side_2, distance;
+```
+
+This snippet from our small program can be seen as a *memory
+snapshot*:
+
+variable name | mailbox | type (size) of mailbox
+------------- | ------- | ----------------------
+x1 | 1 | double
+y1 | 5 | double
+x2 | 4 | double
+y2 | 7 | double
+side\_1 | ? | double
+side\_2 | ? | double
+distance | ? | double
+
+Some mailboxes contain a value, we call these variables *initialized*;
+other mailboxes are yet to be filled with values (but they have
+already got a size assigned in order to be able to hold the values
+that we are going to send them!).
+
+And just like we developed an idea what to program in order to
+calculate the distance between two points on the plane by using pencil
+and paper, we can use *memory snapshots* to track what a program is
+doing.
+
+In C the rules for selecting valid names for variables are:
+
+- A name must begin with an alphabetic character or an underscore;
+- Alphabetic characters in names can be lowercase or uppercase (C is
+  *case sensitive*!!!);
+- A name can contain digits (0-9), but not as the first character;
+- One can not use C keywords as names for variables.
+
+In C these are the *reserved keywords* (31):
+
+col 1 | col 2 | col 3 | col 4
+----- | ----- | ----- | -----
+auto | double | int | struct
+break | else | long | switch
+case | enum | register | typedef
+char | extern | return | union
+const | float | short | unsigned
+continue | for | signed void | volatile
+default | goto | sizeof | while
+do | if | static
 
